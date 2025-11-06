@@ -1,0 +1,28 @@
+services:
+  - type: web
+    name: test-backend
+    env: python
+    build:
+      command: |
+        pip install -r backend/requirements.txt
+    start: gunicorn backend.backend.wsgi:application
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.9.0
+      - key: DJANGO_SECRET_KEY
+        generateValue: true
+      - key: DEBUG
+        value: "False"
+      - key: DISABLE_COLLECTSTATIC
+        value: "1"
+    plan: free
+
+  - type: web
+    name: test-frontend
+    env: static
+    buildCommand: cd frontend && npm install && npm run build
+    staticPublishPath: "./frontend/build"
+    envVars:
+      - key: REACT_APP_API_URL
+        value: https://test-backend.onrender.com  # Update this after backend is deployed
+    plan: free
