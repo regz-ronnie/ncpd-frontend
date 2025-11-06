@@ -2,13 +2,12 @@ services:
   - type: web
     name: test-backend
     env: python
-    build:
-      command: |
-        pip install -r requirements.txt
-    start: gunicorn backend.backend.wsgi:application
+    python:
+      version: 3.9.0
+    buildCommand: |
+      pip install -r requirements.txt
+    startCommand: gunicorn backend.backend.wsgi:application
     envVars:
-      - key: PYTHON_VERSION
-        value: 3.9.0
       - key: DJANGO_SECRET_KEY
         generateValue: true
       - key: DEBUG
