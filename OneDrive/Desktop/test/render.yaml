@@ -4,7 +4,7 @@ services:
     env: python
     build:
       command: |
-        pip install -r backend/requirements.txt
+        pip install -r requirements.txt
     start: gunicorn backend.backend.wsgi:application
     envVars:
       - key: PYTHON_VERSION
