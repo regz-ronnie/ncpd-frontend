@@ -4,8 +4,12 @@ services:
     env: python
     python:
       version: 3.9.0
-    buildCommand: chmod +x build.sh && ./build.sh
-    startCommand: chmod +x start.sh && ./start.sh
+    buildCommand: |
+      chmod +x build.sh
+      ./build.sh
+    startCommand: |
+      chmod +x start.sh
+      ./start.sh
     envVars:
       - key: PYTHON_VERSION
         value: 3.9.0
